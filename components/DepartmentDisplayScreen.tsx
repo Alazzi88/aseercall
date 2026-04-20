@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { CallPriority, HealthRequest, PatientAdmission, RequestStatus, SLUG_TO_DEPARTMENT, SLUG_TO_HOSPITAL } from '../types';
+import { CallPriority, HealthRequest, PatientAdmission, SLUG_TO_DEPARTMENT, SLUG_TO_HOSPITAL } from '../types';
 import { storageService } from '../services/storage';
 import { Language, pick, departmentLabel, hospitalLabel } from '../services/i18n';
 import { priorityBadge, sortByPriority, playTone, toneForPriority } from '../services/sound';
@@ -60,12 +60,6 @@ const DepartmentDisplayScreen: React.FC<Props> = ({ language, onLanguageChange }
     audioUnlockedRef.current = true;
     setSoundUnlocked(true);
     playTone('other');
-  };
-
-  const handleDismiss = (id: string, status: RequestStatus) => {
-    if (status !== RequestStatus.IN_PROGRESS) return;
-    storageService.updateRequestStatus(id, RequestStatus.COMPLETED);
-    playTone('dismiss');
   };
 
   // Room grid: combine admissions + active requests
@@ -169,21 +163,17 @@ const DepartmentDisplayScreen: React.FC<Props> = ({ language, onLanguageChange }
 
                   <div className="bg-white/5 rounded-xl p-3">
                     <p className="text-white font-bold text-sm">{req.serviceType}</p>
-                    {req.description && <p className="text-slate-400 text-xs mt-1 italic">"{req.description}"</p>}
+                    {req.description && (
+                      <div className="mt-2 bg-amber-500/10 border border-amber-400/30 rounded-lg px-3 py-2">
+                        <p className="text-amber-300 text-[10px] font-black mb-0.5">{t('ملاحظة المريض', 'Patient Note')}</p>
+                        <p className="text-amber-100 text-xs font-bold">"{req.description}"</p>
+                      </div>
+                    )}
                   </div>
 
-                  {req.status === RequestStatus.IN_PROGRESS ? (
-                    <button
-                      onClick={() => handleDismiss(req.id, req.status)}
-                      className="w-full bg-emerald-600/80 hover:bg-emerald-600 text-white py-3 rounded-xl font-black transition-all text-sm"
-                    >
-                      ✓ {t('إغلاق التنبيه', 'Close Alert')}
-                    </button>
-                  ) : (
-                    <div className="w-full bg-slate-700/60 text-slate-400 py-3 rounded-xl font-bold text-sm text-center cursor-not-allowed select-none">
-                      ⏳ {t('في انتظار قبول النداء', 'Awaiting acceptance')}
-                    </div>
-                  )}
+                  <div className="w-full bg-slate-700/60 text-slate-400 py-3 rounded-xl font-bold text-sm text-center select-none">
+                    ⏳ {t('تم تلقي النداء — بانتظار الاستجابة', 'Call received — awaiting response')}
+                  </div>
                 </div>
               );
             })}

@@ -20,6 +20,8 @@ const NurseStationScreen: React.FC<Props> = ({ user, language, onLogout, onLangu
   const [deptFilter, setDeptFilter] = useState('ALL');
   const audioUnlockedRef = useRef(false);
   const [soundUnlocked, setSoundUnlocked] = useState(false);
+  const [completingId, setCompletingId] = useState<string | null>(null);
+  const [completionReason, setCompletionReason] = useState('');
 
   const fetchData = () => {
     const all = storageService.getActiveRequestsByDepartment(user.assignedHospital ?? '');
@@ -53,9 +55,17 @@ const NurseStationScreen: React.FC<Props> = ({ user, language, onLogout, onLangu
     fetchData();
   };
 
-  const handleComplete = (id: string) => {
-    storageService.updateRequestStatus(id, RequestStatus.COMPLETED);
+  const handleCompleteClick = (id: string) => {
+    setCompletingId(id);
+    setCompletionReason('');
+  };
+
+  const handleCompleteConfirm = () => {
+    if (!completionReason.trim() || !completingId) return;
+    storageService.updateRequestStatus(completingId, RequestStatus.COMPLETED, completionReason.trim());
     playTone('dismiss');
+    setCompletingId(null);
+    setCompletionReason('');
     fetchData();
   };
 
@@ -199,22 +209,21 @@ const NurseStationScreen: React.FC<Props> = ({ user, language, onLogout, onLangu
 
                   <div className="bg-slate-50 p-3 rounded-xl border border-slate-100">
                     <p className="font-bold text-slate-800 text-sm">{serviceTypeLabel(req.serviceType, language)}</p>
-                    {req.description && <p className="text-xs text-slate-500 mt-1 italic">"{req.description}"</p>}
+                    {req.description && (
+                      <div className="mt-2 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2">
+                        <p className="text-[10px] font-black text-amber-600 mb-0.5">{t('ملاحظة المريض', 'Patient Note')}</p>
+                        <p className="text-sm text-amber-900 font-bold">"{req.description}"</p>
+                      </div>
+                    )}
                     <p className={`text-[10px] mt-1.5 font-bold ${elapsed >= 5 ? 'text-red-500' : 'text-slate-400'}`}>
                       {t(`منذ ${elapsed} دقيقة`, `${elapsed} min ago`)}
                     </p>
                   </div>
 
                   {/* Actions */}
-                  {req.status === RequestStatus.PENDING ? (
-                    <button onClick={() => handleAccept(req.id)} className="w-full bg-sky-700 text-white py-3 rounded-2xl font-bold hover:bg-sky-800">
-                      {t('قبول النداء', 'Accept')}
-                    </button>
-                  ) : (
-                    <button onClick={() => handleComplete(req.id)} className="w-full bg-emerald-600 text-white py-3 rounded-2xl font-bold hover:bg-emerald-700">
-                      {t('تم الإنجاز ✓', 'Mark Completed ✓')}
-                    </button>
-                  )}
+                  <button onClick={() => handleCompleteClick(req.id)} className="w-full bg-emerald-600 text-white py-3 rounded-2xl font-bold hover:bg-emerald-700">
+                    {t('إغلاق التنبيه ✓', 'Close Alert ✓')}
+                  </button>
                   <button onClick={() => handleCancel(req.id)} className="w-full bg-slate-100 text-slate-600 py-2 rounded-2xl font-bold hover:bg-slate-200 text-sm">
                     {t('إلغاء النداء', 'Cancel Call')}
                   </button>
@@ -228,6 +237,54 @@ const NurseStationScreen: React.FC<Props> = ({ user, language, onLogout, onLangu
       <footer className="mx-3 mb-3 panel-glass rounded-2xl py-4 text-center text-xs font-semibold text-slate-600">
         Developed by Yahya Alizzi
       </footer>
+
+      {/* Completion Reason Modal */}
+      {completingId && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4" dir="rtl">
+          <div className="bg-white rounded-3xl shadow-2xl p-6 sm:p-8 w-full max-w-md animate-fade-up">
+            <h3 className="text-lg font-black text-slate-800 mb-1">{t('سبب إغلاق التنبيه', 'Reason for Closing')}</h3>
+            <p className="text-xs text-slate-500 mb-4">{t('يُحفظ السبب في سجل النداء لمراجعة المشرف', 'Reason is saved in the call record for supervisor review')}</p>
+            <div className="flex flex-wrap gap-2 mb-4">
+              {[
+                t('تم حل الطلب', 'Request resolved'),
+                t('النداء كان بالغلط', 'Call was accidental'),
+                t('تم تحويل المريض', 'Patient transferred'),
+                t('تمت الاستجابة من زميل', 'Colleague responded'),
+              ].map(preset => (
+                <button
+                  key={preset}
+                  type="button"
+                  onClick={() => setCompletionReason(preset)}
+                  className={`px-3 py-1.5 rounded-full text-xs font-bold border transition-all ${completionReason === preset ? 'bg-emerald-600 text-white border-emerald-600' : 'bg-slate-100 text-slate-600 border-slate-200 hover:border-emerald-400'}`}
+                >
+                  {preset}
+                </button>
+              ))}
+            </div>
+            <textarea
+              className="w-full border-2 border-gray-200 rounded-2xl px-4 py-3 h-24 resize-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 outline-none mb-4 text-sm"
+              value={completionReason}
+              onChange={e => setCompletionReason(e.target.value)}
+              placeholder={t('أو اكتب السبب هنا...', 'Or type your reason here...')}
+            />
+            <div className="flex gap-3">
+              <button
+                onClick={handleCompleteConfirm}
+                disabled={!completionReason.trim()}
+                className="flex-1 bg-emerald-600 text-white py-3 rounded-2xl font-bold hover:bg-emerald-700 disabled:opacity-40 disabled:cursor-not-allowed"
+              >
+                {t('تأكيد الإغلاق', 'Confirm Close')}
+              </button>
+              <button
+                onClick={() => setCompletingId(null)}
+                className="px-5 py-3 rounded-2xl font-bold bg-slate-100 text-slate-600 hover:bg-slate-200"
+              >
+                {t('إلغاء', 'Cancel')}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

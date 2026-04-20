@@ -220,7 +220,8 @@ export const storageService = {
       id: createId(),
       createdAt: now,
       updatedAt: now,
-      status: RequestStatus.PENDING,
+      status: RequestStatus.IN_PROGRESS,
+      respondedAt: now,
       priority
     };
     requests.unshift(newRequest);

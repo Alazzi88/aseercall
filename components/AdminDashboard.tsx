@@ -996,6 +996,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({
                     <th className="px-6 py-4">{t('الخدمة', 'Service')}</th>
                     <th className="px-6 py-4">{t('الحالة', 'Status')}</th>
                     <th className="px-6 py-4">{t('الموقع', 'Location')}</th>
+                    <th className="px-6 py-4">{t('سبب الإغلاق', 'Close Reason')}</th>
                     <th className="px-6 py-4">{t('التاريخ', 'Date')}</th>
                   </tr>
                 </thead>
@@ -1024,6 +1025,11 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({
                           `${hospitalLabel(request.hospitalName, language)} - ${departmentLabel(request.department, language)} - غرفة ${request.roomNumber} - سرير ${request.bedNumber}`,
                           `${hospitalLabel(request.hospitalName, language)} - ${departmentLabel(request.department, language)} - Room ${request.roomNumber} - Bed ${request.bedNumber}`
                         )}
+                      </td>
+                      <td className="px-6 py-4 text-xs text-slate-600 max-w-[180px]">
+                        {request.cancellationReason
+                          ? <span className="italic text-emerald-700">"{request.cancellationReason}"</span>
+                          : <span className="text-slate-300">—</span>}
                       </td>
                       <td className="px-6 py-4 text-xs text-slate-500">
                         {formatDateTime(request.createdAt, language)}

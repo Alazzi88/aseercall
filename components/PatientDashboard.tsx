@@ -191,13 +191,19 @@ const PatientDashboard: React.FC<PatientDashboardProps> = ({
               </div>
             </div>
             <div>
-              <label className="block text-sm font-bold text-gray-700 mb-3">{t('تفاصيل إضافية (اختياري)', 'Details (Optional)')}</label>
+              <label className="block text-sm font-bold text-gray-700 mb-3">
+                {t('الملاحظة', 'Note')}
+                <span className="text-red-500 mr-1">*</span>
+              </label>
               <textarea
+                required
+                minLength={3}
                 className="w-full border-2 border-gray-100 rounded-2xl px-4 py-3 h-28 resize-none focus:ring-4 focus:ring-sky-500/10 focus:border-sky-500 outline-none transition-all"
                 value={description}
                 onChange={e => setDescription(e.target.value)}
-                placeholder={t('مثال: أحتاج مساعدة للحركة', 'Example: I need mobility assistance')}
+                placeholder={t('اذكر تفاصيل طلبك بوضوح — مثال: أشعر بألم في الصدر', 'Describe your request clearly — e.g. I have chest pain')}
               />
+              <p className="text-xs text-slate-400 mt-1">{t('هذا الحقل إلزامي', 'This field is required')}</p>
             </div>
             <button
               disabled={isSubmitting}
