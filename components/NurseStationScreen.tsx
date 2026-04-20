@@ -224,9 +224,6 @@ const NurseStationScreen: React.FC<Props> = ({ user, language, onLogout, onLangu
                   <button onClick={() => handleCompleteClick(req.id)} className="w-full bg-emerald-600 text-white py-3 rounded-2xl font-bold hover:bg-emerald-700">
                     {t('إغلاق التنبيه ✓', 'Close Alert ✓')}
                   </button>
-                  <button onClick={() => handleCancel(req.id)} className="w-full bg-slate-100 text-slate-600 py-2 rounded-2xl font-bold hover:bg-slate-200 text-sm">
-                    {t('إلغاء النداء', 'Cancel Call')}
-                  </button>
                 </div>
               );
             })
