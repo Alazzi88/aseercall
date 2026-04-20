@@ -84,7 +84,7 @@ const NurseStationScreen: React.FC<Props> = ({ user, language, onLogout, onLangu
             <div className="flex justify-between items-center h-20">
               <div className="flex items-center gap-3">
                 <span className="inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400 shadow-[0_0_0_6px_rgba(16,185,129,0.2)]" />
-                <img src="/aseer-health-cluster-logo.png" alt="Aseer Health" className="h-12 md:h-14 w-auto max-w-[180px] object-contain" />
+                <img src="/aseer-health-cluster-logo.png" alt="Aseer Health" className="h-12 md:h-14 w-auto max-w-[120px] sm:max-w-[180px] object-contain" />
                 <span className="hidden md:inline text-sm font-black text-slate-700 bg-sky-50 px-3 py-1 rounded-full border border-sky-200">
                   {t('شاشة التمريض', 'Nursing Station')}
                 </span>
@@ -133,7 +133,7 @@ const NurseStationScreen: React.FC<Props> = ({ user, language, onLogout, onLangu
         )}
 
         {/* Stats row */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-8">
           {([CallPriority.EMERGENCY, CallPriority.NURSE_CALL, CallPriority.MEDICATION, CallPriority.OTHER] as CallPriority[]).map(priority => {
             const badge = priorityBadge(priority);
             const count = requests.filter(r => (r.priority ?? 'OTHER') === priority).length;
@@ -161,7 +161,7 @@ const NurseStationScreen: React.FC<Props> = ({ user, language, onLogout, onLangu
         )}
 
         {/* Requests */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
           {filtered.length === 0 ? (
             <div className="col-span-full py-24 text-center bg-white rounded-[2.5rem] border-2 border-dashed border-slate-200 text-slate-400">
               <p className="text-5xl mb-3">✅</p>

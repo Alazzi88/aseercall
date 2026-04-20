@@ -432,7 +432,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({
   const managedUsers = users.filter(user => user.role !== UserRole.PATIENT);
 
   return (
-    <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 grid grid-cols-1 xl:grid-cols-4 gap-6 animate-fade-up">
+    <div className="max-w-7xl mx-auto py-4 sm:py-8 px-3 sm:px-4 lg:px-8 grid grid-cols-1 xl:grid-cols-4 gap-6 animate-fade-up">
       <div className="xl:col-span-3">
         <div className="motion-card bg-white rounded-3xl shadow-sm mb-8 overflow-hidden border border-slate-100 p-1.5 flex flex-col md:flex-row gap-2 md:gap-0">
           <button
@@ -480,7 +480,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({
                   <p className="text-slate-500 text-sm mt-1">{currentUser.name}</p>
                 </div>
                 <div className="flex flex-col md:flex-row gap-3 w-full md:w-auto">
-                  <div className="min-w-[200px]">
+                  <div className="w-full md:min-w-[200px]">
                     <label className="text-xs font-bold text-slate-500">{t('المستشفى', 'Hospital')}</label>
                     <select
                       value={selectedHospital}
@@ -491,7 +491,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({
                       {HOSPITALS.map(h => <option key={h} value={h}>{hospitalLabel(h, language)}</option>)}
                     </select>
                   </div>
-                  <div className="min-w-[160px]">
+                  <div className="w-full md:min-w-[160px]">
                     <label className="text-xs font-bold text-slate-500">{t('القسم', 'Department')}</label>
                     <select
                       value={selectedDepartment}
@@ -738,7 +738,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({
               <h4 className="font-black text-slate-900 text-lg mb-5">
                 🎯 {t('توزيع النداءات حسب الأولوية', 'Calls by Priority')}
               </h4>
-              <div className="grid grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
                 {dashboardInsights.priorityRows.map(row => {
                   const circumference = 2 * Math.PI * 36;
                   const dash = (row.pct / 100) * circumference;

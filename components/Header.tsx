@@ -51,14 +51,14 @@ const Header: React.FC<HeaderProps> = ({
     <header className="sticky top-0 z-50 px-3 pt-3">
       <div className="max-w-7xl mx-auto panel-glass motion-card rounded-2xl overflow-hidden">
         <div className="h-1 w-full bg-gradient-to-r from-teal-500 via-sky-500 to-cyan-400" />
-        <div className="px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-20">
+        <div className="px-3 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16 md:h-20">
             <div className="flex items-center gap-3">
               <span className="inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400 shadow-[0_0_0_6px_rgba(16,185,129,0.2)]" />
               <img
                 src="/aseer-health-cluster-logo.png"
                 alt={pick(language, 'شعار تجمع عسير الصحي', 'Aseer Health Cluster Logo')}
-                className="h-12 md:h-14 w-auto max-w-[230px] object-contain"
+                className="h-9 sm:h-12 md:h-14 w-auto max-w-[140px] sm:max-w-[200px] object-contain"
               />
             </div>
 
@@ -96,7 +96,7 @@ const Header: React.FC<HeaderProps> = ({
                 )}
 
                 <div
-                  className="hidden md:flex flex-col items-start ml-4 cursor-pointer hover:opacity-80 transition-opacity"
+                  className="hidden lg:flex flex-col items-start cursor-pointer hover:opacity-80 transition-opacity"
                   onClick={onOpenProfile}
                 >
                   <p className="text-sm font-bold text-slate-800">{user.name}</p>
@@ -104,7 +104,7 @@ const Header: React.FC<HeaderProps> = ({
                 </div>
                 <button
                   onClick={onLogout}
-                  className="bg-red-50 text-red-700 px-4 py-2 rounded-xl text-sm font-bold hover:bg-red-100 transition-colors border border-red-100"
+                  className="bg-red-50 text-red-700 px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold hover:bg-red-100 transition-colors border border-red-100"
                 >
                   {isEnglish ? 'Logout' : 'تسجيل الخروج'}
                 </button>

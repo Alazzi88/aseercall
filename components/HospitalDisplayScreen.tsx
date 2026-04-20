@@ -84,7 +84,7 @@ const HospitalDisplayScreen: React.FC<Props> = ({ language, onLanguageChange }) 
   }
 
   return (
-    <div className="display-screen min-h-screen p-6 md:p-8" dir="rtl">
+    <div className="display-screen min-h-screen p-4 sm:p-6 md:p-8" dir="rtl">
       {!soundUnlocked && (
         <button onClick={unlockAudio} className="sound-unlock-banner">
           🔊 {t('انقر لتفعيل الصوت', 'Click to enable sound')}

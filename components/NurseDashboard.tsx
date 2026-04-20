@@ -77,7 +77,7 @@ const NurseDashboard: React.FC<NurseDashboardProps> = ({ user, language = 'ar' }
   const scopeLabel = user.assignedHospital ? hospitalLabel(user.assignedHospital, language) : t('جميع المستشفيات', 'All Hospitals');
 
   return (
-    <div className="max-w-7xl mx-auto py-8 px-4 animate-fade-up">
+    <div className="max-w-7xl mx-auto py-4 sm:py-8 px-3 sm:px-4 animate-fade-up">
       {!audioUnlockedRef.current && (
         <button onClick={unlockAudio} className="sound-unlock-banner mb-4 block">
           🔊 {t('انقر لتفعيل تنبيهات الصوت', 'Click to enable sound alerts')}
@@ -94,9 +94,9 @@ const NurseDashboard: React.FC<NurseDashboardProps> = ({ user, language = 'ar' }
       )}
 
       {/* Header */}
-      <div className="motion-card animated-gradient bg-slate-800 rounded-[2.5rem] p-8 mb-8 text-white shadow-xl flex flex-col md:flex-row justify-between items-center gap-4">
+      <div className="motion-card animated-gradient bg-slate-800 rounded-[2.5rem] p-5 sm:p-8 mb-6 sm:mb-8 text-white shadow-xl flex flex-col md:flex-row justify-between items-center gap-4">
         <div>
-          <h2 className="text-3xl font-bold mb-2">{t('شاشة التمريض — استقبال النداءات', 'Nursing Dashboard')}</h2>
+          <h2 className="text-xl sm:text-3xl font-bold mb-1 sm:mb-2">{t('شاشة التمريض — استقبال النداءات', 'Nursing Dashboard')}</h2>
           <p className="opacity-70 text-sm">{scopeLabel}</p>
         </div>
         <div className="flex gap-3 flex-wrap justify-center">
@@ -137,7 +137,7 @@ const NurseDashboard: React.FC<NurseDashboardProps> = ({ user, language = 'ar' }
       )}
 
       {/* Requests Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         {filtered.length === 0 ? (
           <div className="col-span-full py-24 text-center bg-white rounded-[2.5rem] border-2 border-dashed border-slate-200 text-slate-400">
             <p className="text-5xl mb-4">✅</p>

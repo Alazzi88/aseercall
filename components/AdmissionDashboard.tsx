@@ -85,11 +85,11 @@ const AdmissionDashboard: React.FC<AdmissionDashboardProps> = ({ user, language 
   };
 
   return (
-    <div className="max-w-6xl mx-auto py-8 px-4 grid grid-cols-1 xl:grid-cols-5 gap-6 animate-fade-up">
+    <div className="max-w-6xl mx-auto py-4 sm:py-8 px-3 sm:px-4 grid grid-cols-1 lg:grid-cols-5 gap-4 sm:gap-6 animate-fade-up">
       {/* Registration Form */}
-      <div className="xl:col-span-3 bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100 motion-card">
-        <div className="animated-gradient bg-sky-700 p-8 text-white">
-          <h2 className="text-2xl font-bold">{t('شاشة مكتب الدخول', 'Admission Desk')}</h2>
+      <div className="lg:col-span-3 bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100 motion-card">
+        <div className="animated-gradient bg-sky-700 p-5 sm:p-8 text-white">
+          <h2 className="text-xl sm:text-2xl font-bold">{t('شاشة مكتب الدخول', 'Admission Desk')}</h2>
           <p className="opacity-80 mt-1 text-sm">
             {t('تسجيل المرضى المنومين وربطهم بالغرفة والقسم.', 'Register admitted patients and assign room and department.')}
           </p>
@@ -100,7 +100,7 @@ const AdmissionDashboard: React.FC<AdmissionDashboardProps> = ({ user, language 
           )}
         </div>
 
-        <form onSubmit={handleSubmit} className="p-8 space-y-6">
+        <form onSubmit={handleSubmit} className="p-4 sm:p-8 space-y-5 sm:space-y-6">
           {success && (
             <div className="bg-emerald-50 text-emerald-700 p-4 rounded-xl font-bold border border-emerald-200">
               ✅ {t('تم تسجيل المريض بنجاح.', 'Patient registered successfully.')}
@@ -181,11 +181,11 @@ const AdmissionDashboard: React.FC<AdmissionDashboardProps> = ({ user, language 
       </div>
 
       {/* Recent Admissions */}
-      <div className="xl:col-span-2">
+      <div className="lg:col-span-2">
         <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-6 motion-card h-full">
           <h3 className="font-black text-slate-800 text-lg mb-1">{t('آخر حالات التنويم', 'Recent Admissions')}</h3>
           <p className="text-xs text-slate-500 mb-4">{t('آخر 10 سجلات', 'Last 10 records')}</p>
-          <div className="space-y-3 max-h-[560px] overflow-auto">
+          <div className="space-y-3 max-h-[400px] sm:max-h-[560px] overflow-auto">
             {admissions.length === 0 && (
               <div className="border border-dashed border-slate-200 rounded-2xl p-6 text-center text-slate-400 text-sm">
                 {t('لا توجد سجلات حتى الآن.', 'No records yet.')}

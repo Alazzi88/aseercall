@@ -90,7 +90,7 @@ const DepartmentDisplayScreen: React.FC<Props> = ({ language, onLanguageChange }
   }
 
   return (
-    <div className="display-screen min-h-screen p-6 md:p-8" dir="rtl">
+    <div className="display-screen min-h-screen p-4 sm:p-6 md:p-8" dir="rtl">
       {/* Sound unlock overlay */}
       {!soundUnlocked && (
         <button onClick={unlockAudio} className="sound-unlock-banner">
@@ -201,7 +201,7 @@ const DepartmentDisplayScreen: React.FC<Props> = ({ language, onLanguageChange }
             <p className="text-xl font-bold">{t('لا يوجد مرضى منومين في هذا القسم حالياً', 'No admitted patients in this department')}</p>
           </div>
         ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
             {Array.from(roomMap.values()).map(({ admission, request }) => {
               const badge = request ? priorityBadge(request.priority) : null;
               return (
