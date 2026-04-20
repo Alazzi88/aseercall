@@ -1,0 +1,363 @@
+:root {
+  color-scheme: light;
+  --bg-base: #eef9ff;
+  --bg-soft: #fbfdff;
+  --ink-900: #0f172a;
+  --ink-700: #334155;
+  --ink-500: #64748b;
+  --line-soft: rgba(148, 163, 184, 0.25);
+  --line-strong: rgba(56, 189, 248, 0.32);
+  --brand-700: #0369a1;
+  --brand-600: #0284c7;
+  --brand-500: #0ea5e9;
+  --brand-gradient: linear-gradient(125deg, #0f766e 0%, #0284c7 48%, #0ea5e9 100%);
+  --accent-gradient: linear-gradient(135deg, #14b8a6 0%, #0ea5e9 52%, #0369a1 100%);
+  --surface-glass: rgba(255, 255, 255, 0.82);
+  --surface-solid: rgba(255, 255, 255, 0.94);
+  --shadow-soft: 0 18px 35px rgba(2, 132, 199, 0.14);
+  --shadow-strong: 0 30px 60px rgba(15, 23, 42, 0.14);
+  --radius-xl: 1.35rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'IBM Plex Sans Arabic', 'Segoe UI', Tahoma, sans-serif;
+  color: var(--ink-900);
+  background-color: var(--bg-base);
+  background-image:
+    radial-gradient(700px circle at 12% 16%, rgba(56, 189, 248, 0.18), transparent 66%),
+    radial-gradient(680px circle at 88% 8%, rgba(20, 184, 166, 0.16), transparent 70%),
+    radial-gradient(580px circle at 80% 86%, rgba(14, 165, 233, 0.15), transparent 72%),
+    linear-gradient(180deg, #f8fcff 0%, #edf7ff 42%, #f7fcff 100%);
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.display-heading {
+  font-family: 'Changa', 'IBM Plex Sans Arabic', sans-serif;
+  letter-spacing: 0.02em;
+}
+
+a {
+  color: inherit;
+}
+
+.app-shell {
+  position: relative;
+  isolation: isolate;
+  min-height: 100vh;
+}
+
+.app-shell::before {
+  content: '';
+  position: fixed;
+  inset: -24% -18% auto;
+  height: 62vh;
+  background:
+    radial-gradient(circle at 20% 35%, rgba(56, 189, 248, 0.5) 0%, rgba(56, 189, 248, 0) 58%),
+    radial-gradient(circle at 68% 44%, rgba(20, 184, 166, 0.45) 0%, rgba(20, 184, 166, 0) 54%),
+    radial-gradient(circle at 82% 70%, rgba(2, 132, 199, 0.34) 0%, rgba(2, 132, 199, 0) 58%);
+  filter: blur(20px);
+  opacity: 0.8;
+  z-index: -2;
+  animation: waveFloat 26s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+.app-shell::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(
+      -35deg,
+      rgba(148, 163, 184, 0.06) 0,
+      rgba(148, 163, 184, 0.06) 1px,
+      transparent 1px,
+      transparent 16px
+    );
+  opacity: 0.55;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.auth-shell-card {
+  border-radius: 2.15rem;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  background: var(--surface-solid);
+  box-shadow: var(--shadow-strong);
+  overflow: hidden;
+}
+
+.panel-glass {
+  border: 1px solid var(--line-soft);
+  background: var(--surface-glass);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  box-shadow: var(--shadow-soft);
+}
+
+.motion-card {
+  position: relative;
+  transition:
+    transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 240ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    border-color 240ms ease;
+}
+
+.motion-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(120deg, rgba(56, 189, 248, 0.22), rgba(20, 184, 166, 0.16), transparent 65%);
+  opacity: 0;
+  transition: opacity 280ms ease;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.motion-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 48px rgba(15, 23, 42, 0.15);
+  border-color: rgba(56, 189, 248, 0.28);
+}
+
+.motion-card:hover::before {
+  opacity: 1;
+}
+
+.animated-gradient {
+  background-size: 180% 180%;
+  animation: gradientShift 12s ease infinite;
+}
+
+.section-subtitle {
+  color: var(--ink-500);
+  font-size: 0.79rem;
+  font-weight: 700;
+  letter-spacing: 0.025em;
+}
+
+.input-field,
+.ui-input {
+  width: 100%;
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--ink-900);
+  padding: 0.86rem 1rem;
+  border-radius: 0.95rem;
+  outline: none;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+  font-weight: 600;
+}
+
+.input-field::placeholder,
+.ui-input::placeholder {
+  color: var(--ink-500);
+}
+
+.input-field:focus,
+.ui-input:focus {
+  border-color: var(--brand-500);
+  box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.17);
+  transform: translateY(-1px);
+}
+
+.primary-action {
+  background: var(--brand-gradient);
+  color: #fff;
+  border: 0;
+  border-radius: 1rem;
+  font-weight: 700;
+  transition: transform 0.18s ease, filter 0.18s ease;
+}
+
+.primary-action:hover {
+  transform: translateY(-1px);
+  filter: saturate(1.08);
+}
+
+.surface-divider {
+  border: 1px solid var(--line-soft);
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.animate-fade-up {
+  animation: fadeUp 520ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.animate-delay-1 {
+  animation-delay: 100ms;
+}
+
+.animate-delay-2 {
+  animation-delay: 180ms;
+}
+
+.animate-delay-3 {
+  animation-delay: 250ms;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(14, 165, 233, 0.7), rgba(2, 132, 199, 0.7));
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(148, 163, 184, 0.12);
+}
+
+@keyframes waveFloat {
+  from {
+    transform: translateY(-1%) translateX(0) scale(1);
+  }
+  to {
+    transform: translateY(5%) translateX(4%) scale(1.06);
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@media (max-width: 768px) {
+  .auth-shell-card {
+    border-radius: 1.7rem;
+  }
+
+  .app-shell::before {
+    inset: -40% -36% auto;
+    height: 58vh;
+    opacity: 0.72;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-shell::before {
+    animation: none;
+  }
+
+  .animate-fade-up {
+    animation: none;
+  }
+
+  .animated-gradient {
+    animation: none;
+  }
+}
+
+/* ── Priority Pulse Animations ── */
+@keyframes emergencyPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 18px rgba(239, 68, 68, 0);
+  }
+}
+
+@keyframes nursePulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 0 14px rgba(249, 115, 22, 0);
+  }
+}
+
+.emergency-pulse {
+  animation: emergencyPulse 1.2s ease-in-out infinite;
+}
+
+.nurse-pulse {
+  animation: nursePulse 1.8s ease-in-out infinite;
+}
+
+/* ── Display Screen Dark Theme ── */
+.display-screen {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+  color: #f1f5f9;
+  font-family: 'IBM Plex Sans Arabic', sans-serif;
+}
+
+.display-card {
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  background: rgba(30, 41, 59, 0.8);
+  backdrop-filter: blur(8px);
+  border-radius: 1.5rem;
+}
+
+.display-card-emergency {
+  border: 2px solid rgba(239, 68, 68, 0.6);
+  background: rgba(127, 29, 29, 0.35);
+}
+
+.display-card-nurse {
+  border: 2px solid rgba(249, 115, 22, 0.5);
+  background: rgba(120, 53, 15, 0.3);
+}
+
+.display-card-medication {
+  border: 2px solid rgba(245, 158, 11, 0.5);
+  background: rgba(120, 80, 15, 0.3);
+}
+
+/* ── Sound Unlock Banner ── */
+.sound-unlock-banner {
+  position: fixed;
+  bottom: 1.5rem;
+  inset-inline: 1rem;
+  z-index: 9999;
+  background: rgba(2, 132, 199, 0.95);
+  color: white;
+  padding: 1rem 1.5rem;
+  border-radius: 1rem;
+  text-align: center;
+  font-weight: 700;
+  cursor: pointer;
+  animation: fadeUp 400ms ease both;
+  max-width: 480px;
+  margin-inline: auto;
+}
