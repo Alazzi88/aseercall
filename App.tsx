@@ -6,6 +6,7 @@ import StaffAuthGate from './components/StaffAuthGate';
 import DepartmentDisplayScreen from './components/DepartmentDisplayScreen';
 import HospitalDisplayScreen from './components/HospitalDisplayScreen';
 import NurseStationGuard from './components/NurseStationGuard';
+import LandingPage from './components/LandingPage';
 
 const App: React.FC = () => {
   const [language, setLanguage] = useState<Language>(() => getInitialLanguage());
@@ -16,7 +17,7 @@ const App: React.FC = () => {
 
   return (
     <Routes>
-      <Route path="/" element={<Navigate to="/patient" replace />} />
+      <Route path="/" element={<LandingPage language={language} onLanguageChange={setLanguage} />} />
       <Route
         path="/patient"
         element={<PatientPortal language={language} onLanguageChange={setLanguage} />}
